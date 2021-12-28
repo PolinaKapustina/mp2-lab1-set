@@ -321,5 +321,5 @@ TEST(TSet, can_combine_three_sets_of_non_equal_size)
 	expSet.InsElem(3);
 	expSet.InsElem(4);
 	expSet.InsElem(6);
-		EXPECT_EQ(expSet, set3);
+		EXPECT_EQ(expSet, set4);
 }
