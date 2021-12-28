@@ -20,7 +20,7 @@ TSet::TSet(const TSet &s) : BitField(s.BitField)
 }
 
 // конструктор преобразования типа
-TSet::TSet(const TBitField &bf) : BitField(-1)
+TSet::TSet(const TBitField &bf) : BitField(bf)
 {
     MaxPower = bf.GetLength();
     BitField = bf;
@@ -39,7 +39,7 @@ int TSet::GetMaxPower(void) const // получить макс. к-во эл-т�
 
 int TSet::IsMember(const int Elem) const // элемент множества?
 {
-    if (Elem < 0 || Elem >= MaxPower) throw("The element is out of bounds of the set);
+    if (Elem < 0 || Elem >= MaxPower) throw("The element is out of bounds of the set");
 	return BitField.GetBit(Elem);
 }
 
