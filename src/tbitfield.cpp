@@ -12,7 +12,7 @@ TBitField::TBitField(int len)
 	if (len >= 0)
 	{
 		BitLen = len;
-		MemLen = (len + (sizeof(TELEM) * 8 - 1)) >> sizeof(TELEM);
+		MemLen = (len + (sizeof(TELEM) * 8 - 1)) / sizeof(TELEM);
 		pMem = new TELEM[MemLen];
 		if (pMem != NULL) {
 			for (int i = 0; i < MemLen; i++)
@@ -87,7 +87,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 {
 	if ((n > -1) || (n < BitLen))
 	return (pMem[GetMemIndex(n)] & GetMemMask(n)) == 0 ? 0 : 1;
-	else throw;
+	else throw ("The number is out of the bit field");
 }
 
 // битовые операции
@@ -106,10 +106,13 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 
 int TBitField::operator==(const TBitField &bf) const // сравнение
 {
-	if (bf == *this)
-		return 0;
-	else
+	if (bf.BitLen == BitLen) {
+		for (int i = 0; i < MemLen; i++) {
+			if (pMem[i] != bf.pMem[i]) return 0;
+		}
 		return 1;
+	}
+	return 0;
 }
 
 int TBitField::operator!=(const TBitField &bf) const // сравнение
